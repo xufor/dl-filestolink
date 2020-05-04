@@ -1,5 +1,6 @@
 import re
 import requests
+from sys import stdin as si
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0',
@@ -10,14 +11,33 @@ headers = {
     'Connection': 'keep-alive',
 }
 
-no_of_lines = int(input("Enter the number of messages you selected: "))
+print("=========================HOW TO USE==========================")
+print("=> Paste the selected messages from @filestolink telegram bot")
+print("=> Press Enter")
+print("=> Press Ctrl+D")
+print("=============================================================")
+
 text = str()
-for _ in range(13*no_of_lines + 1):
-    text += input() + "\n"
+while True:
+    try:
+        text += input()
+    except EOFError:
+        break
 
 links = [l[1:-1] for l in re.findall('\(....................\)', text)]
 
-for link in links:
-    if link:
-        response = requests.get(link, headers=headers)
-        print(r'http://www.filestolink.gq' + response.text.split('\n')[139].strip()[9:-2])
+if len(links) > 0:
+    for link in links:
+        if link:
+            response = requests.get(link, headers=headers)
+            #print(response.text)
+            response = response.text.split('\n')
+            for index in range(len(response)):
+                position = response[index].find('id="video-fully-responsive"')
+                if(position != -1):
+                    print(r'http://www.filestolink.gq' + response[index+1].strip()[13:-20])
+                    break
+                position = response[index].find('class="filename"')
+                if(position != -1 and response[index+2].strip() != "<div id='vidiv'>"):
+                    print(r'http://www.filestolink.gq' + response[index+2].strip()[9:-2])
+                    break
