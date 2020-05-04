@@ -41,5 +41,3 @@ if len(links) > 0:
                 if(position != -1 and response[index+2].strip() != "<div id='vidiv'>"):
                     print(r'http://www.filestolink.gq' + response[index+2].strip()[9:-2])
                     break
-
-input("Press any key to exit.")
