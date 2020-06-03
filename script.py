@@ -34,9 +34,9 @@ if len(links) > 0:
             for index in range(len(response)):
                 position = response[index].find('id="video-fully-responsive"')
                 if(position != -1):
-                    print(r'http://www.filestolink.gq' + response[index+1].strip()[13:-20])
+                    print(r'http://linkforfiles.cf' + response[index+1].strip()[13:-20])
                     break
                 position = response[index].find('class="filename"')
                 if(position != -1 and response[index+2].strip() != "<div id='vidiv'>"):
-                    print(r'http://www.filestolink.gq' + response[index+2].strip()[9:-2])
+                    print(r'http://linkforfiles.cf' + response[index+2].strip()[9:-2])
                     break
